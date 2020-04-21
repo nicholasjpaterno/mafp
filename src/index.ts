@@ -14,6 +14,10 @@ export default class MaFP<K, V> extends Map<K, V> {
     }
   }
 
+  /**
+   * Calls a defined callback function on each element of the MaFP, and returns a new MaFP that contains the results.
+   * @param fn A function that accepts up to three arguments. The map method calls the callbackfn function one time for each element in the MaFP.
+   */
   map<T>(fn : (val: V, key:K, map: MaFP<K,V>) => T){
     const res = new MaFP<K,T>();
     this._map<T>(fn, (key:K, val:T) => {
@@ -22,6 +26,10 @@ export default class MaFP<K, V> extends Map<K, V> {
     return res;
   }
   
+  /**
+   * Calls a defined callback function on each element of the MaFP, and returns an array that contains the results.
+   * @param fn A function that accepts up to three arguments. The map method calls the callbackfn function one time for each element in the MaFP.
+   */
   mapToArray<T>(fn : (val: V, key:K, map: MaFP<K,V>) => T){
     const res: [K, T][] = [];
     this._map<T>(fn, (key:K, val:T) => {
@@ -39,18 +47,31 @@ export default class MaFP<K, V> extends Map<K, V> {
     }
   }
 
+  /**
+   * Returns the elements of the MaFP that meet the condition specified in the callback function.
+   * @param fn A function that accepts up to three arguments. The filter method calls the callback function one time for each element in the MaFP.
+   */
   filter(fn: (val:V, key: K, map: MaFP<K,V>) => boolean){
     const res = new MaFP<K,V>();
     this._filter(fn, (key:K, val:V) => res.set(key, val));
     return res;
   }
   
+  /**
+   * Returns an array of tuples [K,V][] with the elements of the MaFP that meet the condition specified in a callback function.
+   * @param fn A function that accepts up to three arguments. The filter method calls the callback function one time for each element in the MaFP.
+   */
   filterToArray(fn: (val:V, key: K, map: MaFP<K,V>) => boolean){
     const res: [K,V][] = [];
     this._filter(fn, (key: K, val: V) => res.push([key, val]));
     return res;
   }
 
+  /**
+   * Calls the specified callback function for all the elements in the MaFP. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
+   * @param fn A function that accepts up to four arguments. The reduce method calls the callback function one time for each element in the MaFP.
+   * @param accumulator If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callback function provides this value as an argument instead of an element.
+   */
   reduce<T>(fn: (accumulator: T, value: V, key: K, map: MaFP<K, V>) => T, accumulator: T = <T>{}){
     for (const entry of this) {
       const [key, val] = entry;
