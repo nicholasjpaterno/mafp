@@ -46,12 +46,12 @@ export default class MaFP<K, V> extends Map<K, V> {
   }
   
   filterToArray(fn: (val:V, key: K, map: MaFP<K,V>) => boolean){
-    const res: any[] = [];
+    const res: [K,V][] = [];
     this._filter(fn, (key: K, val: V) => res.push([key, val]));
     return res;
   }
 
-  reduce<T>(fn: (accumulator: T, value: V, key: K, map: MaFP<K, V>) => T, accumulator: T){
+  reduce<T>(fn: (accumulator: T, value: V, key: K, map: MaFP<K, V>) => T, accumulator: T = <T>{}){
     for (const entry of this) {
       const [key, val] = entry;
       accumulator = fn(accumulator, val, key, this);
