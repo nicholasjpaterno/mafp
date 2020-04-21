@@ -3,7 +3,7 @@ export default class MaFP<K, V> extends Map<K, V> {
     super(...args);
   }
 
-  _map<T>(fn: (val: V, key:K, map: MaFP<K,V>) => T, op: (key:K, value:T) => void){
+  private _map<T>(fn: (val: V, key:K, map: MaFP<K,V>) => T, op: (key:K, value:T) => void){
     for (const entry of this) {
       const [key, val] = entry;
       op(key, fn(val, key, this));
@@ -26,7 +26,7 @@ export default class MaFP<K, V> extends Map<K, V> {
     return res;
   }
 
-  _filter(fn: (val:V, key: K, map: MaFP<K,V>) => boolean, op: (key:K, value:V) => any){
+  private _filter(fn: (val:V, key: K, map: MaFP<K,V>) => boolean, op: (key:K, value:V) => any){
     for (const entry of this) {
       const [key, val] = entry;
       if(fn(val, key, this)){
