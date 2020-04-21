@@ -9,7 +9,6 @@
   "scripts": {
     "build": "tsc",
     "start": "node build/index.js",
-    "prepublishOnly": "yarn run build",
     "publish": "npm publish"
   },
   "dependencies": {
