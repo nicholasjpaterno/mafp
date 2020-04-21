@@ -1,4 +1,4 @@
-import MaFP from "./index";
+import MaFP from "../index";
 const test = new MaFP<string, boolean>([
   ["A", true],
   ["B", false],
