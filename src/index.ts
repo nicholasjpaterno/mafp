@@ -50,7 +50,7 @@ export default class MaFP<K, V> extends Map<K, V> {
   reduce<T>(fn: (accumulator: T, value: V, key: K, map: MaFP<K, V>) => T, accumulator: T){
     for (const entry of this) {
       const [key, val] = entry;
-      accumulator = fn(accumulator, val, key, this)
+      accumulator = fn(accumulator, val, key, this);
     }
     return accumulator;
   }
@@ -65,5 +65,5 @@ export default class MaFP<K, V> extends Map<K, V> {
 // }
 
 // interface Accumulator {
-//   <K, V>(accumulator: any, value: V, key: K, map: MaFP<K, V>) : any
+//   <K, V, T>(accumulator: T, value: V, key: K, map: MaFP<K, V>) : T
 // }
