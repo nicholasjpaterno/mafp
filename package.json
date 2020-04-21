@@ -5,7 +5,8 @@
   "author": "nicholasjpaterno <cashlion@protonmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node index.js"
+    "build": "tsc",
+    "start": "node build/index.js"
   },
   "dependencies": {
     "typescript": "^3.8.3"
