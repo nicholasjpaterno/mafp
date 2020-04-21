@@ -1,9 +1,11 @@
 {
   "name": "mafp",
   "version": "0.0.1",
-  "main": "index.js",
+  "main": "build/index.js",
   "author": "nicholasjpaterno <cashlion@protonmail.com>",
   "license": "MIT",
+  "homepage": "https://github.com/nicholasjpaterno/mafp/blob/master/README.md",
+  "repository": "https://github.com/nicholasjpaterno/mafp/",
   "scripts": {
     "build": "tsc",
     "start": "node build/index.js",
