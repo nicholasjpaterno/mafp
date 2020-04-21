@@ -28,7 +28,7 @@ const test = new MaFP([
 ```
 ### TypeScript
 ```typescript
-import MaFP from "./index";
+import MaFP from "mafp";
 
 // Diamond notation needed if no arguments are provided
 const test = new MaFP<string, boolean>();
