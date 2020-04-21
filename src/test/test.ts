@@ -1,5 +1,5 @@
 import MaFP from "../index";
-const test = new MaFP<string, boolean>([
+const test = new MaFP([
   ["A", true],
   ["B", false],
   ["C", true],
