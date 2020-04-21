@@ -6,5 +6,8 @@
   "license": "MIT",
   "scripts": {
     "start": "node index.js"
+  },
+  "dependencies": {
+    "typescript": "^3.8.3"
   }
 }
