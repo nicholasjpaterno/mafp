@@ -1,6 +1,10 @@
 export default class MaFP<K, V> extends Map<K, V> {
-  constructor(...args: any[]){
-    super(...args);
+  /**
+   * MaFP is a Map with native filter, map, and reduce
+   * @param args Array of tuples [T, V][] to be inserted in order into the MaFP
+   */
+  constructor(args?: [K,V][]){
+    super(args);
   }
 
   private _map<T>(fn: (val: V, key:K, map: MaFP<K,V>) => T, op: (key:K, value:T) => void){
