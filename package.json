@@ -6,7 +6,9 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "start": "node build/index.js"
+    "start": "node build/index.js",
+    "prepublishOnly": "yarn run build",
+    "publish": "npm publish"
   },
   "dependencies": {
     "typescript": "^3.8.3"
