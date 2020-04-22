@@ -8,8 +8,7 @@ export default class MaFP<K, V> extends Map<K, V> {
   }
 
   private _map<T>(fn: (val: V, key:K, map: MaFP<K,V>) => T, op: (key:K, value:T) => void){
-    for (const entry of this) {
-      const [key, val] = entry;
+    for (const [key, val] of this) {
       op(key, fn(val, key, this));
     }
   }
@@ -39,8 +38,7 @@ export default class MaFP<K, V> extends Map<K, V> {
   }
 
   private _filter(fn: (val:V, key: K, map: MaFP<K,V>) => boolean, op: (key:K, value:V) => any){
-    for (const entry of this) {
-      const [key, val] = entry;
+    for (const [key, val] of this) {
       if(fn(val, key, this)){
         op(key, val);
       }
@@ -73,8 +71,7 @@ export default class MaFP<K, V> extends Map<K, V> {
    * @param accumulator If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callback function provides this value as an argument instead of an element.
    */
   reduce<T>(fn: (accumulator: T, value: V, key: K, map: MaFP<K, V>) => T, accumulator: T = <T>{}){
-    for (const entry of this) {
-      const [key, val] = entry;
+    for (const [key, val] of this) {
       accumulator = fn(accumulator, val, key, this);
     }
     return accumulator;
