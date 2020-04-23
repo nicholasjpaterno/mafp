@@ -1,6 +1,6 @@
 {
   "name": "mafp",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "build/index.js",
   "author": "nicholasjpaterno <cashlion@protonmail.com>",
   "license": "MIT",
@@ -8,8 +8,7 @@
   "repository": "https://github.com/nicholasjpaterno/mafp/",
   "scripts": {
     "build": "tsc",
-    "start": "node build/index.js",
-    "publish": "npm publish"
+    "start": "node build/index.js"
   },
   "dependencies": {},
   "devDependencies": {
