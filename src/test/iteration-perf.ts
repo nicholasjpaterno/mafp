@@ -9,20 +9,20 @@ for (let i = 0; i < 1000000; i++) {
 console.log("Testing..\n");
 
 console.time("forEach");
-testMap.forEach(function (value, key) {
+testMap.forEach(function (_value, _key) {
     
 });
 console.timeEnd("forEach");
 
 console.time("entry");
-for (let entry of testMap) {
+for (let _entry of testMap) {
   
 }
 console.timeEnd("entry");
 
 
 console.time("destructure");
-for (let [key, value] of testMap) {
+for (let [_key, _value] of testMap) {
   
 }
 console.timeEnd("destructure");
@@ -30,8 +30,8 @@ console.timeEnd("destructure");
 
 console.time("local");
 for (let entry of testMap) {
-  let key = entry[0];
-  let value = entry[1];
+  let _key = entry[0];
+  let _value = entry[1];
 }
 console.timeEnd("local");
 
