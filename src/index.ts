@@ -105,14 +105,3 @@ export default class MaFP<K, V> extends Map<K, V> {
     return false;
   }
 }
-// interface Filter {
-//   <K,V>(val:V, key: K, map: MaFP<K,V>): boolean
-// }
-
-// interface FilterOp {
-//   <K,V>(key:K, value:V): any
-// }
-
-// interface Accumulator {
-//   <K, V, T>(accumulator: T, value: V, key: K, map: MaFP<K, V>) : T
-// }
