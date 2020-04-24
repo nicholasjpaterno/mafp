@@ -82,7 +82,7 @@ export default class MaFP<K, V> extends Map<K, V> {
    * @param fn A function that accepts up to three arguments that is applied to every element and determines whether all the members satisfy the specified test.
    * @param thisArg An object to which the this keyword can refer in the callback function. If thisArg is omitted, undefined is used as the this value.
    */
-  every(fn: (val:V, key: K, map: MaFP<K,V>) => boolean, thisArg?: any){
+  every(fn: (val:V, key: K, map: MaFP<K,V>) => any, thisArg?: any){
     for (const entry of this) {
       if(!fn.call(thisArg, entry[1], entry[0], this)) {
         return false;
@@ -90,8 +90,21 @@ export default class MaFP<K, V> extends Map<K, V> {
     }
     return true;
   }
-}
 
+  /**
+   * The some method calls the callback function for each element in the MaFP until the callback returns a value which is coercible to the Boolean value true, or until the last element of the MaFP.
+   * @param fn A function that accepts up to three arguments that is applied to every element and determines whether all the members satisfy the specified test.
+   * @param thisArg An object to which the this keyword can refer in the callback function. If thisArg is omitted, undefined is used as the this value.
+   */
+  some(fn: (val:V, key: K, map: MaFP<K,V>) => any, thisArg?: any){
+    for (const entry of this) {
+      if(fn.call(thisArg, entry[1], entry[0], this)) {
+        return true;
+      }
+    }
+    return false;
+  }
+}
 // interface Filter {
 //   <K,V>(val:V, key: K, map: MaFP<K,V>): boolean
 // }
