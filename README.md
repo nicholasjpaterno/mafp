@@ -1,10 +1,10 @@
 # MaFP
-`Map` with `.map`, `.filter`, `.reduce` methods.
+`Map` object with `.map`, `.filter`, `.reduce` methods.
 
 https://www.npmjs.com/package/mafp
 
 ### Motivation
-Maps don’t have these methods natively.  One would first need to copy the iterator into an array `[...iterator]` before using `.map`, `.filter`, `.reduce`.  This allows you to use those methods natively on the `Map`.
+Maps don’t have these methods natively.  One would first need to copy an iterator into an array `[...iterator]` before using `.map`, `.filter`, `.reduce`.  MaFP allows you to use those methods natively.
 
 ## Installation
 ```bash
@@ -58,4 +58,11 @@ test.mapToArray(val => !val);
 
 test.reduce((acc, curr) => acc + Number(curr), 0);
 // 3
+
+test.every(val => val);
+// false
+
+test.some(val => val);
+// true
+
 ```
