@@ -11,12 +11,16 @@ const resFilterArr = test.filterToArray(val => val);
 const resMapMap = test.map(val => !val);
 const resMapArr = test.mapToArray(val => !val);
 const reduce = test.reduce((acc, curr) => acc + Number(curr), 0);
+const every = test.every(val => val);
+const some = test.some(val => val);
 
 console.log(resFilterMap);
 console.log(resFilterArr);
 console.log(resMapMap);
 console.log(resMapArr);
 console.log(reduce);
+console.log(every);
+console.log(some);
 
 const loops = [ 10, 100, 1000, 10000, 100000, 1000000 ];
 
