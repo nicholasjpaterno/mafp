@@ -19,9 +19,7 @@ export default class MaFP<K, V> extends Map<K, V> {
    */
   map<T>(fn : (val: V, key:K, map: MaFP<K,V>) => T){
     const res = new MaFP<K,T>();
-    this._map<T>(fn, (key:K, val:T) => {
-      res.set(key, val);
-    });
+    this._map<T>(fn, (key:K, val:T) => res.set(key, val));
     return res;
   }
   
@@ -31,17 +29,13 @@ export default class MaFP<K, V> extends Map<K, V> {
    */
   mapToArray<T>(fn : (val: V, key:K, map: MaFP<K,V>) => T){
     const res: [K, T][] = [];
-    this._map<T>(fn, (key:K, val:T) => {
-      res.push([key, val]);
-    });
+    this._map<T>(fn, (key:K, val:T) => res.push([key, val]));
     return res;
   }
 
   private _filter(fn: (val:V, key: K, map: MaFP<K,V>) => boolean, op: (key:K, value:V) => any){
     this.forEach((val, key) => {
-        if(fn(val, key, this)){
-          op(key, val);
-        }
+        if(fn(val, key, this)) op(key, val);
     });
   }
 
