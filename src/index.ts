@@ -99,3 +99,5 @@ export default class MaFP<K, V> extends Map<K, V> {
     return false;
   }
 }
+// const a = new Map();
+// const b = a.values();
