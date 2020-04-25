@@ -3,11 +3,11 @@ export default class MaFP<K, V> extends Map<K, V> {
    * MaFP is a Map with native `filter`, `map`,`reduce`, `every`, and `some` methods.
    * @param args Array of tuples [T, V][] to be inserted in order into the MaFP
    */
-  constructor(args?: [K,V][]){
+  constructor(args?: [K, V][]) {
     super(args);
   }
 
-  private _map<T>(fn: FnSig<K,V,T>, op: (key: K, value: T) => void){
+  private _map<T>(fn: FnSig<K, V, T>, op: (key: K, value: T) => void): void {
     this.forEach((val, key) => {
       op(key, fn(val, key, this));
     });
@@ -17,25 +17,28 @@ export default class MaFP<K, V> extends Map<K, V> {
    * Calls a defined callback function on each element of the MaFP, and returns a new MaFP that contains the results.
    * @param fn A function that accepts up to three arguments. The map method calls the callbackfn function one time for each element in the MaFP.
    */
-  map<T>(fn: FnSig<K,V,T>){
-    const res = new MaFP<K,T>();
+  map<T>(fn: FnSig<K, V, T>): MaFP<K, T> {
+    const res = new MaFP<K, T>();
     this._map<T>(fn, (key: K, val: T) => res.set(key, val));
     return res;
   }
-  
+
   /**
    * Calls a defined callback function on each element of the MaFP, and returns an array that contains the results.
    * @param fn A function that accepts up to three arguments. The map method calls the callbackfn function one time for each element in the MaFP.
    */
-  mapToArray<T>(fn: FnSig<K,V,T>){
+  mapToArray<T>(fn: FnSig<K, V, T>): [K, T][] {
     const res: [K, T][] = [];
     this._map<T>(fn, (key: K, val: T) => res.push([key, val]));
     return res;
   }
 
-  private _filter(fn: FnSig<K,V, boolean>, op: (key: K, value: V) => any){
+  private _filter(
+    fn: FnSig<K, V, boolean>,
+    op: (key: K, value: V) => void,
+  ): void {
     this.forEach((val, key) => {
-        if(fn(val, key, this)) op(key, val);
+      if (fn(val, key, this)) op(key, val);
     });
   }
 
@@ -43,18 +46,18 @@ export default class MaFP<K, V> extends Map<K, V> {
    * Returns the elements of the MaFP that meet the condition specified in the callback function.
    * @param fn A function that accepts up to three arguments. The filter method calls the callback function one time for each element in the MaFP.
    */
-  filter(fn: FnSig<K,V,boolean>){
-    const res = new MaFP<K,V>();
+  filter(fn: FnSig<K, V, boolean>): MaFP<K, V> {
+    const res = new MaFP<K, V>();
     this._filter(fn, (key: K, val: V) => res.set(key, val));
     return res;
   }
-  
+
   /**
    * Returns an array of tuples [K,V][] with the elements of the MaFP that meet the condition specified in a callback function.
    * @param fn A function that accepts up to three arguments. The filter method calls the callback function one time for each element in the MaFP.
    */
-  filterToArray(fn: FnSig<K,V,boolean>){
-    const res: [K,V][] = [];
+  filterToArray(fn: FnSig<K, V, boolean>): [K, V][] {
+    const res: [K, V][] = [];
     this._filter(fn, (key: K, val: V) => res.push([key, val]));
     return res;
   }
@@ -64,7 +67,10 @@ export default class MaFP<K, V> extends Map<K, V> {
    * @param fn A function that accepts up to four arguments. The reduce method calls the callback function one time for each element in the MaFP.
    * @param accumulator If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callback function provides this value as an argument instead of an element.
    */
-  reduce<T>(fn: (accumulator: T, value: V, key: K, map: MaFP<K, V>) => T, accumulator: T = <T>{}){
+  reduce<T>(
+    fn: (accumulator: T, value: V, key: K, map: MaFP<K, V>) => T,
+    accumulator: T = {} as T,
+  ): T {
     this.forEach((val, key) => {
       accumulator = fn(accumulator, val, key, this);
     });
@@ -76,9 +82,9 @@ export default class MaFP<K, V> extends Map<K, V> {
    * @param fn A function that accepts up to three arguments that is applied to every element and determines whether all the members satisfy the specified test.
    * @param thisArg An object to which the this keyword can refer in the callback function. If thisArg is omitted, undefined is used as the this value.
    */
-  every(fn: FnSig<K,V,any>, thisArg?: any){
+  every(fn: FnSig<K, V, unknown>, thisArg?: unknown): boolean {
     for (const entry of this) {
-      if(!fn.call(thisArg, entry[1], entry[0], this)) {
+      if (!fn.call(thisArg, entry[1], entry[0], this)) {
         return false;
       }
     }
@@ -90,34 +96,37 @@ export default class MaFP<K, V> extends Map<K, V> {
    * @param fn A function that accepts up to three arguments that is applied to every element and determines whether all the members satisfy the specified test.
    * @param thisArg An object to which the this keyword can refer in the callback function. If thisArg is omitted, undefined is used as the this value.
    */
-  some(fn: FnSig<K,V,any>, thisArg?: any){
+  some(fn: FnSig<K, V, unknown>, thisArg?: unknown): boolean {
     for (const entry of this) {
-      if(fn.call(thisArg, entry[1], entry[0], this)) {
+      if (fn.call(thisArg, entry[1], entry[0], this)) {
         return true;
       }
     }
     return false;
   }
 
-  private _defineProperties(obj: any, props: any){
+  private _defineProperties<T>(
+    iterable: IterableIterator<T>,
+    props: PropertyDescriptorMap,
+  ): void {
     const properties = {};
     const defaultConfig = {
       enumerable: false,
-      configurable: false
+      configurable: false,
     };
     for (const key in props) {
       Object.assign(properties, {
-        [key] : Object.assign({}, defaultConfig, props[key])
-      })
+        [key]: Object.assign({}, defaultConfig, props[key]),
+      });
     }
-    Object.defineProperties(obj, properties);
+    Object.defineProperties(iterable, properties);
   }
 
-  keys() {
+  keys(): Filter<K> {
     const keys = super.keys();
     this._defineProperties(keys, {
       filterToArray: {
-        value: (fn: (key: K) => boolean) => {
+        value: (fn: (key: K) => boolean): K[] => {
           const keys: K[] = [];
           for (const key of super.keys()) {
             if (fn(key)) {
@@ -125,17 +134,22 @@ export default class MaFP<K, V> extends Map<K, V> {
             }
           }
           return keys;
-        }
-      }
+        },
+      },
+      // filter: {
+      //   value: () => {},
+      //   enumerable: false,
+      //   configurable: false
+      // }
     });
     return keys as Filter<K>;
   }
 
-  values() {
+  values(): Filter<V> {
     const keys = super.values();
     this._defineProperties(keys, {
       filterToArray: {
-        value: (fn: (key: V) => boolean) => {
+        value: (fn: (key: V) => boolean): V[] => {
           const keys: V[] = [];
           for (const key of super.values()) {
             if (fn(key)) {
@@ -143,8 +157,13 @@ export default class MaFP<K, V> extends Map<K, V> {
             }
           }
           return keys;
-        }
-      }
+        },
+      },
+      // filter: {
+      //   value: () => {},
+      //   enumerable: false,
+      //   configurable: false
+      // }
     });
     return keys as Filter<V>;
   }
@@ -154,6 +173,6 @@ interface Filter<T> extends IterableIterator<T> {
   filterToArray: (fn: (val: T) => boolean) => T[];
 }
 
-interface FnSig<K,V,T> {
-  (val: V, key: K, map: MaFP<K,V>): T;
+interface FnSig<K, V, T> {
+  (val: V, key: K, map: MaFP<K, V>): T;
 }
