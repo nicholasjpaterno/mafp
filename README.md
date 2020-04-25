@@ -1,5 +1,5 @@
 # MaFP
-`Map` object with native `filter`, `map`,`reduce`, `every`, and `some` methods.
+`Map` object with native `filter`, `map`,`reduce`, `every`, and `some` methods. Zero Dependencies.
 
 https://www.npmjs.com/package/mafp
 

@@ -6,6 +6,16 @@
   "license": "MIT",
   "homepage": "https://github.com/nicholasjpaterno/mafp/blob/master/README.md",
   "repository": "https://github.com/nicholasjpaterno/mafp/",
+  "keywords": [
+    "Map Object",
+    "filter",
+    "reduce",
+    "map",
+    "every",
+    "some",
+    "toArray",
+    "functional"
+  ],
   "scripts": {
     "build": "tsc",
     "start": "node build/index.js"
