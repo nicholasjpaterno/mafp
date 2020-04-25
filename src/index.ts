@@ -98,4 +98,62 @@ export default class MaFP<K, V> extends Map<K, V> {
     }
     return false;
   }
+
+  private _defineProperties(obj:any, props:any){
+    const properties = {};
+    const defaultConfig = {
+      enumerable: false,
+      configurable: false
+    };
+    Object.keys(props).forEach((key) => {
+      Object.assign(properties, {
+        [key] : Object.assign({}, defaultConfig, props[key])
+      })
+    })
+    Object.defineProperties(obj, properties);
+  }
+
+  keys() {
+    const keys = super.keys();
+    this._defineProperties(keys, {
+      filterToArray: {
+        value: (fn: (key:K) => boolean) => {
+          const keys: K[] = [];
+          for (const key of super.keys()) {
+            if (fn(key)) {
+              keys.push(key);
+            }
+          }
+          return keys;
+        },
+        enumerable: false,
+        configurable: false
+      },
+    });
+    return keys as Filter<K>;
+  }
+
+  values() {
+    const keys = super.values();
+    this._defineProperties(keys, {
+      filterToArray: {
+        value: (fn: (key:V) => boolean) => {
+          const keys: V[] = [];
+          for (const key of super.values()) {
+            if (fn(key)) {
+              keys.push(key);
+            }
+          }
+          return keys;
+        },
+        enumerable: false,
+        configurable: false
+      },
+    });
+    return keys as Filter<V>;
+  }
+}
+
+interface Filter<T> extends IterableIterator<T> {
+  filterToArray: (fn: (val: T) => boolean) => T[]
 }
