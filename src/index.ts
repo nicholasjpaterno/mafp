@@ -105,11 +105,11 @@ export default class MaFP<K, V> extends Map<K, V> {
       enumerable: false,
       configurable: false
     };
-    Object.keys(props).forEach((key) => {
+    for (const key in props) {
       Object.assign(properties, {
         [key] : Object.assign({}, defaultConfig, props[key])
       })
-    })
+    }
     Object.defineProperties(obj, properties);
   }
 
