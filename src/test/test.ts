@@ -50,3 +50,21 @@ const run = async () => {
 };
 
 run();
+
+const testKeys = test.keys();
+console.log(testKeys);
+const resKeys = testKeys.filterToArray(val => !!val);
+console.log(resKeys);
+
+for (const iterator of testKeys) {
+  console.log(iterator);
+}
+
+const testVals = test.values();
+console.log(testVals);
+const res = testVals.filterToArray(val => !!val);
+console.log(res);
+
+for (const iterator of testVals) {
+  console.log(iterator);
+}
