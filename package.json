@@ -1,6 +1,6 @@
 {
   "name": "mafp",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "build/index.js",
   "author": "nicholasjpaterno <cashlion@protonmail.com>",
   "license": "MIT",
@@ -21,7 +21,8 @@
     "build": "tsc",
     "lint": "yarn eslint . --ext .js,.jsx,.ts,.tsx",
     "start": "node build/index.js",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "prepare": "tsc"
   },
   "dependencies": {},
   "devDependencies": {
