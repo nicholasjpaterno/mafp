@@ -5,3 +5,6 @@ build/test*
 .prettier*
 jest.config.js
 coverage
+.vscode
+.nycrc
+tsconfig.json
