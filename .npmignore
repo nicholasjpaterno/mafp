@@ -2,4 +2,6 @@ node_modules
 src
 build/test*
 .eslint*
-.prettierrc
+.prettier*
+jest.config.js
+coverage
