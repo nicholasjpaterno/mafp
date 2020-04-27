@@ -69,7 +69,7 @@ export default class MaFP<K, V> extends Map<K, V> {
    */
   reduce<T>(
     fn: (accumulator: T, value: V, key: K, map: MaFP<K, V>) => T,
-    accumulator: T = {} as T,
+    accumulator: T,
   ): T {
     this.forEach((val, key) => {
       accumulator = fn(accumulator, val, key, this);
@@ -138,8 +138,6 @@ export default class MaFP<K, V> extends Map<K, V> {
       },
       // filter: {
       //   value: () => {},
-      //   enumerable: false,
-      //   configurable: false
       // }
     });
     return keys as Filter<K>;
@@ -161,8 +159,6 @@ export default class MaFP<K, V> extends Map<K, V> {
       },
       // filter: {
       //   value: () => {},
-      //   enumerable: false,
-      //   configurable: false
       // }
     });
     return keys as Filter<V>;
