@@ -22,6 +22,24 @@ console.log(reduce);
 console.log(every);
 console.log(some);
 
+const testKeys = test.keys();
+console.log(testKeys);
+const resKeys = testKeys.filterToArray((val) => !!val);
+console.log(resKeys);
+
+for (const iterator of testKeys) {
+  console.log(iterator);
+}
+
+const testVals = test.values();
+console.log(testVals);
+const res = testVals.filterToArray((val) => !!val);
+console.log(res);
+
+for (const iterator of testVals) {
+  console.log(iterator);
+}
+
 const loops = [10, 100, 1000, 10000, 100000, 1000000];
 
 const sleep = (time = 1000): Promise<unknown> =>
@@ -51,21 +69,3 @@ const run = (): void => {
 };
 
 run();
-
-const testKeys = test.keys();
-console.log(testKeys);
-const resKeys = testKeys.filterToArray((val) => !!val);
-console.log(resKeys);
-
-for (const iterator of testKeys) {
-  console.log(iterator);
-}
-
-const testVals = test.values();
-console.log(testVals);
-const res = testVals.filterToArray((val) => !!val);
-console.log(res);
-
-for (const iterator of testVals) {
-  console.log(iterator);
-}
