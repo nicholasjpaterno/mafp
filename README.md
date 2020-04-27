@@ -1,3 +1,9 @@
+[![GitHub issues](https://img.shields.io/github/issues/nicholasjpaterno/mafp?style=for-the-badge)](https://github.com/nicholasjpaterno/mafp/issues)
+[![GitHub forks](https://img.shields.io/github/forks/nicholasjpaterno/mafp?style=for-the-badge)](https://github.com/nicholasjpaterno/mafp/network)
+[![GitHub stars](https://img.shields.io/github/stars/nicholasjpaterno/mafp?style=for-the-badge)](https://github.com/nicholasjpaterno/mafp/stargazers)
+[![GitHub license](https://img.shields.io/github/license/nicholasjpaterno/mafp?style=for-the-badge)](https://github.com/nicholasjpaterno/mafp/blob/master/LICENSE)
+[![Twitter](https://img.shields.io/twitter/url?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2Fnicholasjpaterno%2Fmafp)
+
 # MaFP
 `Map` object with native `filter`, `map`,`reduce`, `every`, and `some` methods. Zero Dependencies.
 
