@@ -1,0 +1,14 @@
+{
+  "exclude": [
+    "coverage",
+    "build",
+    ".vscode",
+    "node_modules",
+    "test/*"
+  ],
+  "reporter": ["lcov"],
+  "branches": 100,
+  "functions": 100,
+  "lines": 100,
+  "statements": 100
+}
