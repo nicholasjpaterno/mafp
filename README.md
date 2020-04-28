@@ -70,5 +70,12 @@ test.every(val => val);
 
 test.some(val => val);
 // true
+```
 
+Also works with `.keys()` and `.values()`:
+```javascript
+test.keys().filter(key => key !== 'B');
+// [ 'A', 'C', 'D' ]
+
+// ETC...
 ```
