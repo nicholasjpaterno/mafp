@@ -1,6 +1,6 @@
 {
   "name": "mafp",
-  "version": "0.0.7",
+  "version": "1.0.0",
   "main": "build/index.js",
   "author": "nicholasjpaterno <cashlion@protonmail.com>",
   "license": "MIT",
