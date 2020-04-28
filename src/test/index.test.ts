@@ -5,7 +5,7 @@ describe('MaFP', () => {
 
   beforeAll(() => {
     map.set('A', true);
-    map.set('B', false);
+    map.set('b', false);
     map.set('C', true);
     map.set('D', true);
   });
@@ -13,7 +13,7 @@ describe('MaFP', () => {
   test('filter', () => {
     const resFilterMap = map.filter((val) => val);
     expect(resFilterMap.get('A')).toBeDefined();
-    expect(resFilterMap.get('B')).toBeUndefined();
+    expect(resFilterMap.get('b')).toBeUndefined();
     expect(resFilterMap.get('C')).toBeDefined();
     expect(resFilterMap.get('D')).toBeDefined();
   });
@@ -31,7 +31,7 @@ describe('MaFP', () => {
   test('map', () => {
     const resMapMap = map.map((val) => !val);
     expect(resMapMap.get('A')).toBeFalsy();
-    expect(resMapMap.get('B')).toBeTruthy();
+    expect(resMapMap.get('b')).toBeTruthy();
     expect(resMapMap.get('C')).toBeFalsy();
     expect(resMapMap.get('D')).toBeFalsy();
   });
@@ -40,7 +40,7 @@ describe('MaFP', () => {
     const resMapArr = map.mapToArray((val) => !val);
     const expected = [
       ['A', false],
-      ['B', true],
+      ['b', true],
       ['C', false],
       ['D', false],
     ];
@@ -66,17 +66,77 @@ describe('MaFP', () => {
     expect(someFalse).toBeFalsy();
   });
 
-  test('keys', () => {
+  describe('keys', function () {
     const keys = map.keys();
-    expect(keys).toBeDefined();
-    const filteredKeys = keys.filterToArray((val) => val != 'B');
-    expect(filteredKeys).toBeDefined();
+    test('basic', () => {
+      expect(keys).toBeDefined();
+    });
+
+    test('filterToArray', () => {
+      const filteredKeys = keys.filterToArray((val) => val != 'b');
+      expect(filteredKeys).toEqual(['A', 'C', 'D']);
+    });
+
+    test('mapToArray', () => {
+      const mappedKeys = keys.mapToArray((val) => val + val);
+      expect(mappedKeys).toEqual(['AA', 'bb', 'CC', 'DD']);
+    });
+
+    test('reduce', () => {
+      const reduce = keys.reduce((acc, val) => `${acc}${val}`, '');
+      expect(reduce).toEqual(['A', 'b', 'C', 'D'].join(''));
+    });
+
+    test('every true', () => {
+      const every = keys.every((val) => val);
+      expect(every).toBeTruthy();
+    });
+
+    test('every false', () => {
+      const every = keys.every((val) => val === val.toUpperCase());
+      expect(every).toBeFalsy();
+    });
+
+    test('some true', () => {
+      const some = keys.some((val) => val === val.toUpperCase());
+      expect(some).toBeTruthy();
+    });
+
+    test('some false', () => {
+      const some = keys.some((val) => val === undefined);
+      expect(some).toBeFalsy();
+    });
   });
 
-  test('values', () => {
+  describe('values', function () {
     const values = map.values();
-    expect(values).toBeDefined();
-    const filteredValues = values.filterToArray((val) => val);
-    expect(filteredValues).toBeDefined();
+    test('basic', () => {
+      expect(values).toBeDefined();
+    });
+
+    test('filterToArray', () => {
+      const filteredValues = values.filterToArray((val) => val);
+      expect(filteredValues).toEqual([true, true, true]);
+    });
+
+    test('mapToArray', () => {
+      const mappedValues = values.mapToArray((val) => val);
+      expect(mappedValues).toEqual([true, false, true, true]);
+    });
+
+    test('reduce', () => {
+      const reduce = values.reduce((acc, val) => `${acc}${val}`, '');
+      expect(reduce).toEqual([true, false, true, true].join(''));
+    });
+
+    test('every', () => {
+      const every = values.every((val) => val);
+      expect(every).toBeFalsy();
+    });
+
+    test('some', () => {
+      const some = values.some((val) => val);
+      expect(some).toBeTruthy();
+    });
   });
 });
