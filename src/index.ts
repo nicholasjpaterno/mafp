@@ -106,67 +106,84 @@ export default class MaFP<K, V> extends Map<K, V> {
   }
 
   private _defineProperties<T>(
-    iterable: IterableIterator<T>,
-    props: PropertyDescriptorMap,
-  ): void {
-    const properties = {};
-    const defaultConfig = {
-      enumerable: false,
-      configurable: false,
+    iterableFn: () => IterableIterator<T>,
+  ): KeyOrValue<T> {
+    const iterable = iterableFn();
+    const config = {
+      filterToArray: {
+        value: (fn: (key: T) => boolean): T[] => {
+          const keys: T[] = [];
+          for (const key of iterableFn()) {
+            if (fn(key)) {
+              keys.push(key);
+            }
+          }
+          return keys;
+        },
+        enumerable: false,
+        configurable: false,
+      },
+      mapToArray: {
+        value: <M>(fn: (key: T) => M): M[] => {
+          const keys: M[] = [];
+          for (const key of iterableFn()) {
+            keys.push(fn(key));
+          }
+          return keys;
+        },
+        enumerable: false,
+        configurable: false,
+      },
+      reduce: {
+        value: <A>(fn: (acc: A, val: T) => A, accumulator: A): A => {
+          for (const key of iterableFn()) {
+            accumulator = fn(accumulator, key);
+          }
+          return accumulator;
+        },
+        enumerable: false,
+        configurable: false,
+      },
+      every: {
+        value: (fn: (val: T) => unknown): boolean => {
+          for (const key of iterableFn()) {
+            if (!fn(key)) return false;
+          }
+          return true;
+        },
+        enumerable: false,
+        configurable: false,
+      },
+      some: {
+        value: (fn: (val: T) => unknown): boolean => {
+          for (const key of iterableFn()) {
+            if (fn(key)) return true;
+          }
+          return false;
+        },
+        enumerable: false,
+        configurable: false,
+      },
     };
-    for (const key in props) {
-      Object.assign(properties, {
-        [key]: Object.assign({}, defaultConfig, props[key]),
-      });
-    }
-    Object.defineProperties(iterable, properties);
+    Object.defineProperties(iterable, config);
+    return iterable as KeyOrValue<T>;
   }
 
-  keys(): Filter<K> {
-    const keys = super.keys();
-    this._defineProperties(keys, {
-      filterToArray: {
-        value: (fn: (key: K) => boolean): K[] => {
-          const keys: K[] = [];
-          for (const key of super.keys()) {
-            if (fn(key)) {
-              keys.push(key);
-            }
-          }
-          return keys;
-        },
-      },
-      // filter: {
-      //   value: () => {},
-      // }
-    });
-    return keys as Filter<K>;
+  keys(): KeyOrValue<K> {
+    return this._defineProperties(() => super.keys());
   }
 
-  values(): Filter<V> {
-    const keys = super.values();
-    this._defineProperties(keys, {
-      filterToArray: {
-        value: (fn: (key: V) => boolean): V[] => {
-          const keys: V[] = [];
-          for (const key of super.values()) {
-            if (fn(key)) {
-              keys.push(key);
-            }
-          }
-          return keys;
-        },
-      },
-      // filter: {
-      //   value: () => {},
-      // }
-    });
-    return keys as Filter<V>;
+  values(): KeyOrValue<V> {
+    return this._defineProperties(() => super.values());
   }
 }
 
-interface Filter<T> extends IterableIterator<T> {
+interface KeyOrValue<T> extends IterableIterator<T> {
   filterToArray: (fn: (val: T) => boolean) => T[];
+  mapToArray: <M>(fn: (val: T) => M) => M[];
+  reduce: <A>(fn: (acc: A, val: T) => A, acc: A) => A;
+  every: (fn: (val: T) => unknown) => boolean;
+  some: (fn: (val: T) => unknown) => boolean;
 }
 
 interface FnSig<K, V, T> {
