@@ -1,4 +1,4 @@
-import MaFP from '../index';
+import MaFP from '../src/index';
 
 describe('MaFP', () => {
   const map = new MaFP<string, boolean>();
