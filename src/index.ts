@@ -176,6 +176,17 @@ export default class MaFP<K, V> extends Map<K, V> {
   values(): KeyOrValue<V> {
     return this._defineProperties(() => super.values());
   }
+
+  isSuperset<T extends Map<K, V>>(subset: T): boolean {
+    for (const elem of subset) {
+      const entry = this.get(elem[0]);
+      if (!entry || entry !== elem[1]) {
+        return false;
+      }
+    }
+    return true;
+  }
+
 }
 
 interface KeyOrValue<T> extends IterableIterator<T> {
