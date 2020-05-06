@@ -1,4 +1,4 @@
-[![nycrc config on GitHub](https://img.shields.io/nycrc/nicholasjpaterno/mafp?style=for-the-badge)](https://github.com/nicholasjpaterno/mafp/tree/master/coverage)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/nicholasjpaterno/mafp/Node.js%20CI?style=for-the-badge)](https://github.com/nicholasjpaterno/mafp/actions)
 [![GitHub issues](https://img.shields.io/github/issues/nicholasjpaterno/mafp?style=for-the-badge)](https://github.com/nicholasjpaterno/mafp/issues)
 [![GitHub forks](https://img.shields.io/github/forks/nicholasjpaterno/mafp?style=for-the-badge)](https://github.com/nicholasjpaterno/mafp/network)
 [![GitHub stars](https://img.shields.io/github/stars/nicholasjpaterno/mafp?style=for-the-badge)](https://github.com/nicholasjpaterno/mafp/stargazers)
