@@ -16,6 +16,15 @@ export default class MaFP<K, V> extends Map<K, V> {
     }
     return _clone;
   }
+
+  static union<K, V, T extends Map<K, V>>(mapA: T, mapB: T): MaFP<K, V> {
+    const _union = MaFP.clone<K, V, T>(mapA);
+    for (const elem of mapB) {
+      _union.set(elem[0], elem[1]);
+    }
+    return _union;
+  }
+
   private _map<T>(fn: FnSig<K, V, T>, op: (key: K, value: T) => void): void {
     this.forEach((val, key) => {
       op(key, fn(val, key, this));
@@ -206,6 +215,13 @@ export default class MaFP<K, V> extends Map<K, V> {
     return true;
   }
 
+  union<T extends Map<K, V>>(otherMap: T): MaFP<K, V> {
+    const _union = this.clone();
+    for (const elem of otherMap) {
+      _union.set(elem[0], elem[1]);
+    }
+    return _union;
+  }
 }
 
 interface KeyOrValue<T> extends IterableIterator<T> {
