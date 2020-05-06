@@ -51,6 +51,18 @@ export default class MaFP<K, V> extends Map<K, V> {
     }
     return _difference;
   }
+
+  static difference<K, V, T extends Map<K, V>>(mapA: T, mapB: T): MaFP<K, V> {
+    const _difference = MaFP.clone<K, V, T>(mapA);
+    for (const elem of mapB) {
+      const entry = _difference.get(elem[0]);
+      if (entry && entry === elem[1]) {
+        _difference.delete(elem[0]);
+      }
+    }
+    return _difference;
+  }
+
   private _map<T>(fn: FnSig<K, V, T>, op: (key: K, value: T) => void): void {
     this.forEach((val, key) => {
       op(key, fn(val, key, this));
@@ -268,6 +280,17 @@ export default class MaFP<K, V> extends Map<K, V> {
         _difference.delete(elem[0]);
       } else {
         _difference.set(elem[0], elem[1]);
+      }
+    }
+    return _difference;
+  }
+
+  difference<T extends Map<K, V>>(otherMap: T): MaFP<K, V> {
+    const _difference = this.clone();
+    for (const elem of otherMap) {
+      const entry = _difference.get(elem[0]);
+      if (entry && entry === elem[1]) {
+        _difference.delete(elem[0]);
       }
     }
     return _difference;
