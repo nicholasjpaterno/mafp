@@ -7,6 +7,15 @@ export default class MaFP<K, V> extends Map<K, V> {
     super(args);
   }
 
+  static clone<K, V, T extends Map<K, V>>(toClone: T): MaFP<K, V> {
+    const _clone = new MaFP<K, V>();
+    // We could have just used the spread operator new MaFP<K, V>([...map]);
+    // but its faster to not create the array first
+    for (const elem of toClone) {
+      _clone.set(elem[0], elem[1]);
+    }
+    return _clone;
+  }
   private _map<T>(fn: FnSig<K, V, T>, op: (key: K, value: T) => void): void {
     this.forEach((val, key) => {
       op(key, fn(val, key, this));
@@ -175,6 +184,16 @@ export default class MaFP<K, V> extends Map<K, V> {
 
   values(): KeyOrValue<V> {
     return this._defineProperties(() => super.values());
+  }
+
+  clone(): MaFP<K, V> {
+    const _clone = new MaFP<K, V>();
+    // We could have just used the spread operator new MaFP<K, V>([...map]);
+    // but its faster to not create the array first
+    for (const elem of this) {
+      _clone.set(elem[0], elem[1]);
+    }
+    return _clone;
   }
 
   isSuperset<T extends Map<K, V>>(subset: T): boolean {
