@@ -25,6 +25,16 @@ export default class MaFP<K, V> extends Map<K, V> {
     return _union;
   }
 
+  static intersection<K, V, T extends Map<K, V>>(mapA: T, mapB: T): MaFP<K, V> {
+    const _intersection = new MaFP<K, V>();
+    for (const elem of mapB) {
+      const entry = mapA.get(elem[0]);
+      if (entry && entry === elem[1]) {
+        _intersection.set(elem[0], elem[1]);
+      }
+    }
+    return _intersection;
+  }
   private _map<T>(fn: FnSig<K, V, T>, op: (key: K, value: T) => void): void {
     this.forEach((val, key) => {
       op(key, fn(val, key, this));
@@ -222,6 +232,18 @@ export default class MaFP<K, V> extends Map<K, V> {
     }
     return _union;
   }
+
+  intersection<T extends Map<K, V>>(otherMap: T): MaFP<K, V> {
+    const _intersection = new MaFP<K, V>();
+    for (const elem of otherMap) {
+      const entry = this.get(elem[0]);
+      if (entry && entry === elem[1]) {
+        _intersection.set(elem[0], elem[1]);
+      }
+    }
+    return _intersection;
+  }
+
 }
 
 interface KeyOrValue<T> extends IterableIterator<T> {
