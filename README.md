@@ -16,7 +16,7 @@ Maps don’t have these methods natively.  One would first need to copy an itera
 ```bash
 npm install mafp
 ```
-### OR
+###  OR
 ```bash
 yarn add mafp
 ```
