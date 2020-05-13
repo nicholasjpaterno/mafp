@@ -36,6 +36,7 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: '12'
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
     - run: npm i -g yarn
     - run: yarn install --frozen-lockfile
     - name: Release
