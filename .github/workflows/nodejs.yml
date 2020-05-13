@@ -24,6 +24,21 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm install -g yarn
-    - run: yarn
+    - run: npm i -g yarn
+    - run: yarn install --frozen-lockfile
     - run: yarn test
+
+  release:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '12'
+    - run: npm i -g yarn
+    - run: yarn install --frozen-lockfile
+    - name: Release
+      env:
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      run: npx semantic-release
