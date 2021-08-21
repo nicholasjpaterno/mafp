@@ -51,31 +51,37 @@ const test = new MaFP([
 # Usage
 ```javascript
 test.filter(val => val);
-// MaFP [Map] { 'A' => true, 'C' => true, 'D' => true }
+MaFP [Map] { 'A' => true, 'C' => true, 'D' => true }
 
 test.filterToArray(val => val);
-// [ 'A', true ], [ 'C', true ], [ 'D', true ] ]
+[ 'A', true ], [ 'C', true ], [ 'D', true ] ]
 
 test.map(val => !val);
-// MaFP [Map] { 'A' => false, 'B' => true, 'C' => false, 'D' => false }
+MaFP [Map] { 'A' => false, 'B' => true, 'C' => false, 'D' => false }
 
 test.mapToArray(val => !val);
-// [ [ 'A', false ], [ 'B', true ], [ 'C', false ], [ 'D', false ] ]
+[ [ 'A', false ], [ 'B', true ], [ 'C', false ], [ 'D', false ] ]
 
 test.reduce((acc, curr) => acc + Number(curr), 0);
-// 3
+3
 
 test.every(val => val);
-// false
+false
 
 test.some(val => val);
-// true
+true
+
+test.isSuperset(new MaFP([
+  ["A", true],
+  ["B", false]
+]))
+true
 ```
 
 Also works with `.keys()` and `.values()`:
 ```javascript
 test.keys().filter(key => key !== 'B');
-// [ 'A', 'C', 'D' ]
+[ 'A', 'C', 'D' ]
 
 // ETC...
 ```

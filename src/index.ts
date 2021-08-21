@@ -7,6 +7,62 @@ export default class MaFP<K, V> extends Map<K, V> {
     super(args);
   }
 
+  static clone<K, V, T extends Map<K, V>>(toClone: T): MaFP<K, V> {
+    const _clone = new MaFP<K, V>();
+    // We could have just used the spread operator new MaFP<K, V>([...map]);
+    // but its faster to not create the array first
+    for (const elem of toClone) {
+      _clone.set(elem[0], elem[1]);
+    }
+    return _clone;
+  }
+
+  static union<K, V, T extends Map<K, V>>(mapA: T, mapB: T): MaFP<K, V> {
+    const _union = MaFP.clone<K, V, T>(mapA);
+    for (const elem of mapB) {
+      _union.set(elem[0], elem[1]);
+    }
+    return _union;
+  }
+
+  static intersection<K, V, T extends Map<K, V>>(mapA: T, mapB: T): MaFP<K, V> {
+    const _intersection = new MaFP<K, V>();
+    for (const elem of mapB) {
+      const entry = mapA.get(elem[0]);
+      if (entry && entry === elem[1]) {
+        _intersection.set(elem[0], elem[1]);
+      }
+    }
+    return _intersection;
+  }
+
+  static symmetricDifference<K, V, T extends Map<K, V>>(
+    mapA: T,
+    mapB: T,
+  ): MaFP<K, V> {
+    const _difference = MaFP.clone<K, V, T>(mapA);
+    for (const elem of mapB) {
+      const entry = _difference.get(elem[0]);
+      if (entry && entry === elem[1]) {
+        _difference.delete(elem[0]);
+      } else {
+        _difference.set(elem[0], elem[1]);
+      }
+    }
+    return _difference;
+  }
+
+  static difference<K, V, T extends Map<K, V>>(mapA: T, mapB: T): MaFP<K, V> {
+    const _difference = MaFP.clone<K, V, T>(mapA);
+    for (const elem of mapB) {
+      const entry = _difference.get(elem[0]);
+      if (entry && entry === elem[1]) {
+        _difference.delete(elem[0]);
+      }
+    }
+    return _difference;
+  }
+
   private _map<T>(fn: FnSig<K, V, T>, op: (key: K, value: T) => void): void {
     this.forEach((val, key) => {
       op(key, fn(val, key, this));
@@ -175,6 +231,69 @@ export default class MaFP<K, V> extends Map<K, V> {
 
   values(): KeyOrValue<V> {
     return this._defineProperties(() => super.values());
+  }
+
+  clone(): MaFP<K, V> {
+    const _clone = new MaFP<K, V>();
+    // We could have just used the spread operator new MaFP<K, V>([...map]);
+    // but its faster to not create the array first
+    for (const elem of this) {
+      _clone.set(elem[0], elem[1]);
+    }
+    return _clone;
+  }
+
+  isSuperset<T extends Map<K, V>>(subset: T): boolean {
+    for (const elem of subset) {
+      const entry = this.get(elem[0]);
+      if (!entry || entry !== elem[1]) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  union<T extends Map<K, V>>(otherMap: T): MaFP<K, V> {
+    const _union = this.clone();
+    for (const elem of otherMap) {
+      _union.set(elem[0], elem[1]);
+    }
+    return _union;
+  }
+
+  intersection<T extends Map<K, V>>(otherMap: T): MaFP<K, V> {
+    const _intersection = new MaFP<K, V>();
+    for (const elem of otherMap) {
+      const entry = this.get(elem[0]);
+      if (entry && entry === elem[1]) {
+        _intersection.set(elem[0], elem[1]);
+      }
+    }
+    return _intersection;
+  }
+
+  symmetricDifference<T extends Map<K, V>>(otherMap: T): MaFP<K, V> {
+    const _difference = this.clone();
+    for (const elem of otherMap) {
+      const entry = _difference.get(elem[0]);
+      if (entry && entry === elem[1]) {
+        _difference.delete(elem[0]);
+      } else {
+        _difference.set(elem[0], elem[1]);
+      }
+    }
+    return _difference;
+  }
+
+  difference<T extends Map<K, V>>(otherMap: T): MaFP<K, V> {
+    const _difference = this.clone();
+    for (const elem of otherMap) {
+      const entry = _difference.get(elem[0]);
+      if (entry && entry === elem[1]) {
+        _difference.delete(elem[0]);
+      }
+    }
+    return _difference;
   }
 }
 
